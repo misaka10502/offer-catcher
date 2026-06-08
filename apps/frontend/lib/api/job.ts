@@ -1,4 +1,4 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://sixty-windows-cover.loca.lt';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
 
 /** Fetches job data by job ID */
 export async function getJob(jobId: string) {
