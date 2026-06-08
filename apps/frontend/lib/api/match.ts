@@ -1,4 +1,4 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL!;
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://funny-keys-rest.loca.lt';
 
 export interface MatchResultItem {
   job_index: number;
