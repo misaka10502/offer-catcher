@@ -1,6 +1,6 @@
 import { ImprovedResult } from '@/components/common/resume_previewer_context';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://funny-keys-rest.loca.lt';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://sixty-windows-cover.loca.lt';
 
 /** Uploads job descriptions and returns a job_id */
 export async function uploadJobDescriptions(
