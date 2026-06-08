@@ -1,0 +1,23 @@
+
+> ui@0.1.0 build
+> next build
+
+   ▲ Next.js 15.3.0
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 2000ms
+   Linting and checking validity of types ...
+Failed to compile.
+
+./app/(default)/dashboard/page.tsx:129:56
+Type error: Cannot find name 'AnalyzedJobData'.
+
+[0m [90m 127 |[39m 	[36mconst[39m analysisResult [33m=[39m data[33m.[39manalysis_result [33m?[39m[33m?[39m [32m'No analysis result available.'[39m[33m;[39m[0m
+[0m [90m 128 |[39m[0m
+[0m[31m[1m>[22m[39m[90m 129 |[39m 	[36mconst[39m handleJobUpload [33m=[39m [36masync[39m (text[33m:[39m string)[33m:[39m [33mPromise[39m[33m<[39m[33mAnalyzedJobData[39m [33m|[39m [36mnull[39m[33m>[39m [33m=>[39m {[0m
+[0m [90m     |[39m 	                                                      [31m[1m^[22m[39m[0m
+[0m [90m 130 |[39m 		[36mtry[39m {[0m
+[0m [90m 131 |[39m 			[90m// Upload the job description and get the job ID[39m[0m
+[0m [90m 132 |[39m 			[36mconst[39m jobId [33m=[39m [36mawait[39m uploadJobDescriptions([text][33m,[39m data[33m.[39mresume_id)[33m;[39m[0m
+Next.js build worker exited with code: 1 and signal: null

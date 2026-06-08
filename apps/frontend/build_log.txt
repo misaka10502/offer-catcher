@@ -1,0 +1,23 @@
+
+> ui@0.1.0 build
+> next build
+
+   ▲ Next.js 15.3.0
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 1000ms
+   Linting and checking validity of types ...
+Failed to compile.
+
+./app/(default)/dashboard/page.tsx:88:53
+Type error: This regular expression flag is only available when targeting 'es2018' or later.
+
+[0m [90m 86 |[39m 	[90m// Convert unordered lists[39m[0m
+[0m [90m 87 |[39m 	html [33m=[39m html[33m.[39mreplace([35m/^\s*-\s(.+)$/gm[39m[33m,[39m [32m'<li class="ml-4">$1</li>'[39m)[33m;[39m[0m
+[0m[31m[1m>[22m[39m[90m 88 |[39m 	html [33m=[39m html[33m.[39mreplace([35m/(<li class="ml-4">.*<\/li>)+/gs[39m[33m,[39m [32m'<ul class="list-disc list-inside my-2 space-y-1">$&</ul>'[39m)[33m;[39m[0m
+[0m [90m    |[39m 	                                                   [31m[1m^[22m[39m[0m
+[0m [90m 89 |[39m 	[0m
+[0m [90m 90 |[39m 	[90m// Skip converting ordered lists (numbers with dots)[39m[0m
+[0m [90m 91 |[39m 	[90m// Remove or comment out the following lines if you don't want ordered list conversion[39m[0m
+Next.js build worker exited with code: 1 and signal: null

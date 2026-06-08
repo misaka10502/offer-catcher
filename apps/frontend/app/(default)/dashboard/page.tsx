@@ -85,7 +85,7 @@ const convertMarkdownToHtml = (markdown: string): string => {
 	
 	// Convert unordered lists
 	html = html.replace(/^\s*-\s(.+)$/gm, '<li class="ml-4">$1</li>');
-	html = html.replace(/(<li class="ml-4">.*<\/li>)+/gs, '<ul class="list-disc list-inside my-2 space-y-1">$&</ul>');
+	html = html.replace(/(<li class="ml-4">[\s\S]*?<\/li>)+/g, '<ul class="list-disc list-inside my-2 space-y-1">$&</ul>');
 	
 	// Skip converting ordered lists (numbers with dots)
 	// Remove or comment out the following lines if you don't want ordered list conversion
@@ -118,7 +118,8 @@ export default function DashboardPage() {
 	}
 
 	const { data } = improvedData;
-	const { resume_preview, new_score } = data;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const { resume_preview, new_score } = data as any;
 	const preview = resume_preview ?? mockResumeData;
 	const newPct = Math.round(new_score * 100);
 	

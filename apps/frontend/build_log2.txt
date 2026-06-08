@@ -1,0 +1,23 @@
+
+> ui@0.1.0 build
+> next build
+
+   ▲ Next.js 15.3.0
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 2000ms
+   Linting and checking validity of types ...
+Failed to compile.
+
+./app/(default)/dashboard/page.tsx:121:10
+Type error: Property 'resume_preview' does not exist on type 'Data'.
+
+[0m [90m 119 |[39m[0m
+[0m [90m 120 |[39m 	[36mconst[39m { data } [33m=[39m improvedData[33m;[39m[0m
+[0m[31m[1m>[22m[39m[90m 121 |[39m 	[36mconst[39m { resume_preview[33m,[39m new_score } [33m=[39m data[33m;[39m[0m
+[0m [90m     |[39m 	        [31m[1m^[22m[39m[0m
+[0m [90m 122 |[39m 	[36mconst[39m preview [33m=[39m resume_preview [33m?[39m[33m?[39m mockResumeData[33m;[39m[0m
+[0m [90m 123 |[39m 	[36mconst[39m newPct [33m=[39m [33mMath[39m[33m.[39mround(new_score [33m*[39m [35m100[39m)[33m;[39m[0m
+[0m [90m 124 |[39m 	[0m
+Next.js build worker exited with code: 1 and signal: null
