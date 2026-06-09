@@ -30,8 +30,13 @@ ENV SESSION_SECRET_KEY=offer-catcher-railway-2026
 ENV ASYNC_DATABASE_URL=sqlite+aiosqlite:///./Data/app.db
 ENV SYNC_DATABASE_URL=sqlite:///./Data/app.db
 ENV LLM_PROVIDER=openai
+ENV LLM_API_KEY=sk-d6a8683147894595957521d9635c3992
 ENV LLM_BASE_URL=https://api.deepseek.com/v1
 ENV LL_MODEL=deepseek-chat
+ENV EMBEDDING_PROVIDER=openai
+ENV EMBEDDING_API_KEY=sk-d6a8683147894595957521d9635c3992
+ENV EMBEDDING_BASE_URL=https://api.deepseek.com/v1
+ENV EMBEDDING_MODEL=deepseek-chat
 
 # Railway 自动注入 PORT，默认 8000
 EXPOSE 8000
