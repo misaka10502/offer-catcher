@@ -1,20 +1,37 @@
 'use client';
 
-import React, { useState, useCallback, Suspense } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import React, { useState, useCallback, useEffect, Suspense } from 'react';
+import { useRouter } from 'next/navigation';
 import BackgroundContainer from '@/components/common/background-container';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 
 type SubmissionStatus = 'idle' | 'submitting' | 'success' | 'error';
 
+// 从 URL 安全读取参数（静态导出兼容）
+function getResumeIdFromURL(): string | null {
+  if (typeof window === 'undefined') return null;
+  return new URLSearchParams(window.location.search).get('resume_id');
+}
+
 function JobDescriptionsContent() {
   const [jds, setJds] = useState<string[]>(['', '', '']);
   const [flash, setFlash] = useState<{ type: 'error' | 'success'; message: string } | null>(null);
   const [status, setStatus] = useState<SubmissionStatus>('idle');
+  const [resumeId, setResumeId] = useState<string | null>(null);
 
-  const resumeId = useSearchParams().get('resume_id')!;
   const router = useRouter();
+
+  // 在客户端 hydration 后读取 URL 参数
+  useEffect(() => {
+    const id = getResumeIdFromURL();
+    setResumeId(id);
+    if (!id) {
+      // 尝试从 sessionStorage 恢复
+      const stored = sessionStorage.getItem('offer_catcher_resume_id');
+      if (stored) setResumeId(stored);
+    }
+  }, []);
 
   const updateJd = useCallback((index: number, value: string) => {
     setJds((prev) => {

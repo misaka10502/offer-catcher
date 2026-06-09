@@ -69,6 +69,8 @@ export default function FileUpload() {
 				message: `${(uploadedFile.file as FileMetadata).name} uploaded successfully!`,
 			});
 			clearErrors();
+			// 存储到 sessionStorage 作为备份（防止 URL 参数丢失）
+			sessionStorage.setItem('offer_catcher_resume_id', resumeId);
 			const encodedResumeId = encodeURIComponent(resumeId);
 			window.location.href = `/app/jobs?resume_id=${encodedResumeId}`;
 		},

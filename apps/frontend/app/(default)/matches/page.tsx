@@ -1,10 +1,16 @@
 'use client';
 
 import React, { useState, useEffect, Suspense } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import BackgroundContainer from '@/components/common/background-container';
 import { Button } from '@/components/ui/button';
 import { batchMatch, type BatchMatchData, type MatchResultItem } from '@/lib/api/match';
+
+// 从 URL 安全读取参数（静态导出兼容）
+function getParamFromURL(key: string): string | null {
+  if (typeof window === 'undefined') return null;
+  return new URLSearchParams(window.location.search).get(key);
+}
 
 // Simple markdown to HTML converter (same pattern as dashboard)
 const convertMarkdownToHtml = (markdown: string): string => {
@@ -43,15 +49,30 @@ const getScoreEmoji = (score: number) => {
 };
 
 function MatchResultsContent() {
-  const searchParams = useSearchParams();
   const router = useRouter();
-  const resumeId = searchParams.get('resume_id')!;
-  const jdsParam = searchParams.get('jds');
 
   const [data, setData] = useState<BatchMatchData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+
+  // 在客户端读取 URL 参数（静态导出兼容）
+  const [params, setParams] = useState<{ resumeId: string | null; jdsParam: string | null }>({
+    resumeId: null,
+    jdsParam: null,
+  });
+
+  useEffect(() => {
+    let resumeId = getParamFromURL('resume_id');
+    // sessionStorage 兜底
+    if (!resumeId) {
+      resumeId = sessionStorage.getItem('offer_catcher_resume_id');
+    }
+    const jdsParam = getParamFromURL('jds');
+    setParams({ resumeId, jdsParam });
+  }, []);
+
+  const { resumeId, jdsParam } = params;
 
   useEffect(() => {
     if (!resumeId || !jdsParam) {
