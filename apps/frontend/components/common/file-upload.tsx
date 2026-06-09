@@ -70,7 +70,7 @@ export default function FileUpload() {
 			});
 			clearErrors();
 			const encodedResumeId = encodeURIComponent(resumeId);
-			window.location.href = `/jobs?resume_id=${encodedResumeId}`;
+			window.location.href = `/app/jobs?resume_id=${encodedResumeId}`;
 		},
 		onUploadError: (file, errorMsg) => {
 			console.error('Upload error:', file, errorMsg);
