@@ -4,8 +4,8 @@ __pycache__
 .git
 .gitignore
 *.md
-b.md
-check_db.py
-install_docx_deps.py
 test_*.py
 logs/
+Data/
+node_modules/
+apps/frontend/
