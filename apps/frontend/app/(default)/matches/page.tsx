@@ -56,49 +56,42 @@ function MatchResultsContent() {
   const [error, setError] = useState<string | null>(null);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
-  // 在客户端读取 URL 参数（静态导出兼容）
-  const [params, setParams] = useState<{ resumeId: string | null; jdsParam: string | null }>({
-    resumeId: null,
-    jdsParam: null,
-  });
-
+  // 单一 useEffect：先读参数，再调 API，避免竞态条件
   useEffect(() => {
+    // 1. 读取 resume_id：URL 优先 → sessionStorage 兜底
     let resumeId = getParamFromURL('resume_id');
-    // sessionStorage 兜底
     if (!resumeId) {
       resumeId = sessionStorage.getItem('offer_catcher_resume_id');
     }
-    const jdsParam = getParamFromURL('jds');
-    setParams({ resumeId, jdsParam });
-  }, []);
 
-  const { resumeId, jdsParam } = params;
+    // 2. 读取 JDs：从 sessionStorage（避免 URL 过长）
+    const jdsRaw = sessionStorage.getItem('offer_catcher_jds');
+    let jds: string[] = [];
+    if (jdsRaw) {
+      try {
+        jds = JSON.parse(jdsRaw);
+      } catch {
+        setError('岗位描述数据解析失败。');
+        setLoading(false);
+        return;
+      }
+    }
 
-  useEffect(() => {
-    if (!resumeId || !jdsParam) {
+    // 3. 验证参数
+    if (!resumeId || jds.length === 0) {
       setError('缺少必要参数。请先上传简历并输入岗位描述。');
       setLoading(false);
       return;
     }
 
-    let jds: string[];
-    try {
-      jds = JSON.parse(decodeURIComponent(jdsParam));
-    } catch {
-      setError('岗位描述数据解析失败。');
-      setLoading(false);
-      return;
-    }
-
-    if (!Array.isArray(jds) || jds.length === 0) {
-      setError('没有有效的岗位描述。');
-      setLoading(false);
-      return;
-    }
-
+    // 4. 调 API
+    setLoading(true);
+    setError(null);
     batchMatch(resumeId, jds)
       .then((res) => {
         setData(res.data);
+        // 清除已用的 sessionStorage
+        sessionStorage.removeItem('offer_catcher_jds');
         setLoading(false);
       })
       .catch((err) => {
@@ -106,7 +99,7 @@ function MatchResultsContent() {
         setError(err.message || '匹配分析失败，请稍后重试。');
         setLoading(false);
       });
-  }, [resumeId, jdsParam]);
+  }, []); // 只在 mount 时运行一次
 
   if (loading) {
     return (

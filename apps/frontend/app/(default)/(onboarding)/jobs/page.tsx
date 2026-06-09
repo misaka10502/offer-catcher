@@ -74,9 +74,9 @@ function JobDescriptionsContent() {
 
       setStatus('submitting');
 
-      // Navigate to matches page with JDs encoded in URL
-      const jdsParam = encodeURIComponent(JSON.stringify(nonEmptyJds));
-      router.push(`/matches?resume_id=${resumeId}&jds=${jdsParam}`);
+      // 将 JDs 存入 sessionStorage（避免 URL 过长被截断）
+      sessionStorage.setItem('offer_catcher_jds', JSON.stringify(nonEmptyJds));
+      router.push(`/matches?resume_id=${resumeId}`);
     },
     [nonEmptyJds, resumeId, router]
   );
