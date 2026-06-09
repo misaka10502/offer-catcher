@@ -1,0 +1,11 @@
+__pycache__
+*.pyc
+*.pyo
+.git
+.gitignore
+*.md
+b.md
+check_db.py
+install_docx_deps.py
+test_*.py
+logs/
