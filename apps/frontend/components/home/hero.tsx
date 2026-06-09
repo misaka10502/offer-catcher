@@ -19,7 +19,7 @@ export default function Hero() {
 				学生专属 AI 求职助手 — 海量岗位精准匹配，简历优化一击即中
 			</p>
 			<Link
-				href="/resume"
+				href="/app/resume"
 				className="group relative inline-flex h-10 overflow-hidden rounded-full p-[1px]"
 			>
 				<span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#3A59D1_0%,#7AC6D2_50%,#3A59D1_100%)]" />

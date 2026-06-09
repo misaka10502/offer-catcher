@@ -65,7 +65,7 @@ export default function JobDescriptionUploadTextArea() {
 		try {
 			const preview = await improveResume(resumeId, jobId);
 			setImprovedData(preview);
-			router.push('/dashboard');
+			router.push('/app/dashboard');
 		} catch (err) {
 			console.error(err);
 			setImprovementStatus('error');
