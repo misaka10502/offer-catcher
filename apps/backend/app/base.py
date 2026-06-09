@@ -68,7 +68,7 @@ def create_app() -> FastAPI:
                 name="frontend_next",
             )
 
-        @app.get("/app/{full_path:path}", include_in_schema=False)
+        @app.api_route("/app/{full_path:path}", methods=["GET", "HEAD"], include_in_schema=False)
         async def serve_frontend(request: Request, full_path: str):
             """Serve frontend HTML pages, resolving paths without .html extension."""
             # 根路径 → index.html
@@ -100,7 +100,7 @@ def create_app() -> FastAPI:
             raise HTTPException(status_code=404, detail="Not Found")
 
         # 也处理 /app（无尾部斜杠，无路径参数的情况）
-        @app.get("/app", include_in_schema=False)
+        @app.api_route("/app", methods=["GET", "HEAD"], include_in_schema=False)
         async def serve_frontend_root():
             return FileResponse(os.path.join(settings.FRONTEND_PATH, "index.html"))
 
