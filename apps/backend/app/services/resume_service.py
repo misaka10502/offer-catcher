@@ -76,6 +76,12 @@ class ResumeService:
             try:
                 result = self.md.convert(temp_path)
                 text_content = result.text_content
+                # 检测空内容（扫描图片 PDF 等无法提取文字的情况）
+                if not text_content or not text_content.strip():
+                    raise Exception(
+                        "无法从文件中提取文字内容。该 PDF 可能是扫描图片，不含可选中的文字。"
+                        "请使用包含文字层的 PDF（如从 Word 直接导出），或使用 OCR 工具将扫描件转换为可搜索 PDF 后重新上传。"
+                    )
             except Exception as e:
                 # Handle specific markitdown conversion errors
                 error_msg = str(e)

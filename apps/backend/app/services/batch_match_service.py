@@ -160,6 +160,17 @@ class BatchMatchService:
         # Fetch resume
         resume = await self._get_resume(resume_id)
 
+        # Validate resume has actual content
+        if not resume.content or not resume.content.strip():
+            return {
+                "resume_id": resume_id,
+                "total_jobs": 0,
+                "match_count": 0,
+                "top_score": 0,
+                "summary": "简历内容为空。该简历文件可能为扫描图片，无法提取文字。请上传包含文字层的 PDF。",
+                "results": [],
+            }
+
         # Analyze all matches concurrently (with semaphore limit)
         tasks = [
             self._analyze_single_match(resume, jd, idx)
