@@ -244,13 +244,13 @@ function MatchResultsContent() {
           {/* Bottom Actions */}
           <div className="mt-8 flex justify-center gap-4">
             <Button
-              onClick={() => router.push('/app/jobs')}
+              onClick={() => router.push('/jobs')}
               className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2"
             >
               🔄 重新匹配其他岗位
             </Button>
             <Button
-              onClick={() => router.push('/app/resume')}
+              onClick={() => router.push('/resume')}
               className="bg-gray-700 hover:bg-gray-600 text-white px-6 py-2"
             >
               📄 上传新简历

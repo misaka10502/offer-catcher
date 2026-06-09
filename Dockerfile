@@ -41,4 +41,4 @@ ENV EMBEDDING_MODEL=deepseek-chat
 # Railway 自动注入 PORT，默认 8000
 EXPOSE 8000
 
-CMD ["sh", "-c", "echo 'Starting server on port ${PORT:-8000}...' && uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000} --timeout-keep-alive 120"]
+CMD ["sh", "-c", "echo 'Starting server on port ${PORT:-8000}...' && uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000} --proxy-headers --forwarded-allow-ips='*' --timeout-keep-alive 120"]
